@@ -22,3 +22,6 @@ class News(SqlAlchemyBase):
     categories = orm.relation("Category",
                               secondary="association",
                               backref="news")
+    like = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    dislike = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    photo = sqlalchemy.Column(sqlalchemy.String, default=None)

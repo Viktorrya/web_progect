@@ -44,6 +44,8 @@ def index():
             (News.user == current_user) | (News.is_private != True))
     else:
         news = db_sess.query(News).filter(News.is_private != True)
+    for i in news:
+        print(i.like)
     return render_template("index.html", news=news)
 
 
@@ -127,6 +129,7 @@ def add_news():
         news.title = form.title.data
         news.content = form.content.data
         news.is_private = form.is_private.data
+        news.photo = form.photo.data
         current_user.news.append(news)
         db_sess.merge(current_user)
         db_sess.commit()
