@@ -1,4 +1,4 @@
-from flask import Flask, make_response, session, redirect, abort
+from flask import Flask, make_response, session, redirect, abort, request
 import requests
 from flask import render_template
 from data import db_session
@@ -68,7 +68,7 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/login')
+        return redirect('/')
     return render_template('register.html', title='Регистрация', form=form)
 
 
@@ -103,7 +103,7 @@ def login():
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+            return redirect('/')
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
@@ -182,6 +182,7 @@ def news_delete(id):
     else:
         abort(404)
     return redirect('/')
+
 
 
 def main():
