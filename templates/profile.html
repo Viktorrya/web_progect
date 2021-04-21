@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>Обо мне: {{current_user.about}}</div>
+<h2>Мои записи</h2>
+{% for item in news%}
+{% if current_user == item.user %}
+
+<div class="col-md6 border rounded">
+    <h3>{{item.title}}</h3>
+    <div>
+        {{item.content}}
+    </div>
+    <img src={{item.photo}}>
+    <div>
+        Автор - {{item.user.name}}, Дата написания - {{item.created_date}}
+        </div>
+    <div>
+        Понравилось {{item.like}} людям
+        Не понравилось {{item.dislike}} людям
+    </div>
+    </div>
+    {% endif %}
+{% endfor %}
+{% endblock %}
